@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+</head>
+<body>
+
+<style>
+    
+Skip Results Iframe
+
+body{
+  font-size: 20px;
+  font-family: "Verdana";
+  color: #333;
+}
+.question{
+  font-weight: 600;
+  font-family: "Verdana";
+}
+.answers {
+    margin-bottom: 20px;
+    font-family: "Verdana";
+}
+#submit{
+  font-family: "Verdana";
+  font-size: 16px;
+  background-color: #297;
+  color: #fff;
+  border: 0px;
+  border-radius: 2px;
+  padding: 15px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+#submit:hover{
+  background-color: #3a8;
+}
+    
+</style>
+<div id="quiz"></div>
+<br>
+<button id="submit">Se dit resultat</button>
+<div id="results"></div>
+<br>
+
+</body>
+<script>var myQuestions = [
+    {
+      question: "Hvor hurtigt kan en Maravelo elcykel køre?",
+      answers: {
+        a: '15 km/t ',
+        b: '25 km/t ',
+        c: '40 km/t'
+      },
+      correctAnswer: 'b'
+    },
+   
+    {
+      question: "Er der en bindingsperiode i forbindelse med leasing?",
+      answers: {
+        a: 'Ja ',
+        b: 'Nej ',
+        c: 'Ved ikke'
+      },
+      correctAnswer: 'b'
+    },
+    
+    {
+      question: "Hvor mange år har Maravelo leveret elcykler til det danske marked?",
+      answers: {
+        a: '1 ',
+        b: '3 ',
+        c: '5'
+      },
+      correctAnswer: 'b'
+    }
+  ];
+  
+  var quizContainer = document.getElementById('quiz');
+  var resultsContainer = document.getElementById('results');
+  var submitButton = document.getElementById('submit');
+  
+  generateQuiz(myQuestions, quizContainer, resultsContainer, submitButton);
+  
+  function generateQuiz(questions, quizContainer, resultsContainer, submitButton){
+  
+    function showQuestions(questions, quizContainer){
+      var output = [];
+      var answers;
+  
+      for(var i=0; i<questions.length; i++){
+        
+        answers = [];
+  
+        for(letter in questions[i].answers){
+  
+          answers.push(
+            '<label>'
+              + '<input type="radio" name="question'+i+'" value="'+letter+'">'
+              + letter + ': '
+              + questions[i].answers[letter]
+            + '</label>'
+          );
+        }
+  
+        output.push(
+          '<div class="question">' + questions[i].question + '</div>'
+          + '<div class="answers">' + answers.join('') + '</div>'
+        );
+      }
+  
+      quizContainer.innerHTML = output.join('');
+    }
+  
+    function showResults(questions, quizContainer, resultsContainer){
+      
+      var answerContainers = quizContainer.querySelectorAll('.answers');
+      
+      var userAnswer = '';
+      var numCorrect = 0;
+      
+      for(var i=0; i<questions.length; i++){
+  
+        userAnswer = (answerContainers[i].querySelector('input[name=question'+i+']:checked')||{}).value;
+        
+        if(userAnswer===questions[i].correctAnswer){
+          numCorrect++;
+          
+          answerContainers[i].style.color = 'lightgreen';
+        }
+        else{
+          answerContainers[i].style.color = 'red';
+        }
+      }
+  
+      resultsContainer.innerHTML = numCorrect + ' ud af  ' + questions.length;
+    }
+  
+    showQuestions(questions, quizContainer);
+    
+    submitButton.onclick = function(){
+      showResults(questions, quizContainer, resultsContainer);
+    }
+  
+  }</script>
+</html>

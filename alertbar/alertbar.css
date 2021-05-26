@@ -1,0 +1,30 @@
+.alertbar { 
+
+background-color: #E4CB86; 
+color: #ffffff; 
+display: block;     
+line-height: 50px;
+height: 50px; 
+position: relative; 
+text-align: center; 
+text-decoration: none; 
+width: 100%;
+z-index: 100;
+font-size: 18px;
+font-family:verdana
+}
+
+.closebtn {
+margin-left: 15px;
+color: white;
+font-weight: bold;
+float: right;
+font-size: 22px;
+line-height: 20px;
+cursor: pointer;
+transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}
